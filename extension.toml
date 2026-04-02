@@ -1,0 +1,11 @@
+id = "encore-zed"
+name = "Encore"
+version = "0.0.1"
+schema_version = 1
+authors = ["Maksim Shushkevich <m.e.shushkevich@yandex.com>"]
+description = "Encore extension for Zed"
+repository = "https://github.com/meshushkevich/ehir-zed-lsp"
+
+[grammars.encore]
+repository = "https://github.com/encore-language/tree-sitter-encore"
+commit = "3308714c0ed5875474a6793688b37d3846f2e30b"

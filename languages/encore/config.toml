@@ -1,0 +1,6 @@
+name = "Encore"
+grammar = "encore"
+path_suffixes = ["enq"]
+autoclose_before = "]"
+brackets = [{ start = "[", end = "]", close = true, newline = true }]
+tab_size = 4

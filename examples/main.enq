@@ -1,0 +1,40 @@
+import std::option::Option
+
+struct Vector3D[T] {
+    x: T,
+    y: T,
+    z: T,
+}
+
+impl[T] Vector3D[T] {
+    pub fn new(x: T, y: T, z: T) -> Self {
+        ret Vector3D {0, 0, 0}
+    }
+}
+
+pub fn main() -> u16 {
+    let a = Vector3D[u16]::new(0, 0, 0)
+
+    loop {
+        break
+    }
+
+    while true {
+        break
+    }
+
+    do {
+    } while false
+
+    if true {}
+    elif false {}
+    else {}
+
+    match 5 {
+        case _ => {
+
+        }
+    }
+
+    ret 0
+}

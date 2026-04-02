@@ -1,0 +1,18 @@
+#
+# zed-encore
+#
+
+*.wasm
+.zed
+
+#
+# Rust
+#
+
+/target
+
+#
+# Grammar
+#
+
+grammars
