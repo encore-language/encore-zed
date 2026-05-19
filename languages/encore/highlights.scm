@@ -1,5 +1,4 @@
 (comment) @comment
-(visibility_modifier) @keyword
 
 [
   "fn"
@@ -23,16 +22,9 @@
   "import"
   "extern"
   "unsafe"
-  "ehir"
-  "true"
-  "false"
-  "not"
 ] @keyword
 
-[
-  "H"
-  "S"
-] @type.builtin
+(visibility_modifier) @keyword
 
 [
   "+"
@@ -79,7 +71,6 @@
 [
   ","
   ":"
-  ";"
 ] @punctuation.delimiter
 
 (string_literal) @string
@@ -88,15 +79,26 @@
 (boolean_literal) @boolean
 (numeric_suffix) @type.builtin
 
+(smart_pointer_suffix) @type.builtin
+(any_pointer_suffix) @operator
+
+(typed_parameter name: (identifier) @variable.parameter)
+(receiver_parameter "self" @variable.special)
+(match_binding name: (identifier) @variable.parameter)
+(let_statement name: (identifier) @variable)
+(loop_label name: (identifier) @label)
+
+((path_segment name: (identifier) @variable)
+ (#match? @variable "^[a-z_][A-Za-z0-9_]*$"))
+
+(import_path module: (identifier) @namespace)
+
 (function_signature name: (identifier) @function)
 (call_expression function: (path (path_segment name: (identifier) @function.call)))
 (method_call_expression method: (identifier) @function.method.call)
 
-(typed_parameter name: (identifier) @variable.parameter)
-(receiver_parameter "self" @variable.special)
-
-(import_path module: (identifier) @namespace)
-(import_statement alias: (identifier) @namespace)
+(field_access_expression field: (identifier) @property)
+(c_like_struct_fields (typed_parameter name: (identifier) @property))
 
 (struct_definition signature: (struct_signature name: (identifier) @type))
 (enum_definition name: (identifier) @type)
@@ -106,21 +108,18 @@
 (struct_signature name: (identifier) @type)
 (type name: (identifier) @type)
 
-(field_access_expression field: (identifier) @property)
-(function_attribute name: (identifier) @attribute)
-
-; Builtin primitive/utility types
 ((type name: (identifier) @type.builtin)
  (#match? @type.builtin "^(Self|bool|char|str|usize|isize|[ui][0-9]+|f[0-9]+)$"))
 
-; Enum-qualified variants, e.g. Option[str]::Some, Option[str]::None
+(enum_definition (struct_signature name: (identifier) @constructor))
+(struct_initializer type: (type name: (identifier) @constructor))
+
+((path_segment name: (identifier) @type)
+ (#match? @type "^[A-Z][A-Za-z0-9_]*$"))
+
 ((path
    (path_segment name: (identifier) @type)
    "::"
    (path_segment name: (identifier) @constructor))
  (#match? @type "^[A-Z][A-Za-z0-9_]*$")
  (#match? @constructor "^[A-Z][A-Za-z0-9_]*$"))
-
-; General PascalCase path segments as type-ish symbols
-((path_segment name: (identifier) @type)
- (#match? @type "^[A-Z][A-Za-z0-9_]*$"))
