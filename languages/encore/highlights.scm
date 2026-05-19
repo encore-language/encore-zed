@@ -1,5 +1,10 @@
 (comment) @comment
 
+(function_attribute
+  "#" @punctuation.special
+  "attr" @attribute
+  name: (identifier) @attribute)
+
 [
   "fn"
   "struct"

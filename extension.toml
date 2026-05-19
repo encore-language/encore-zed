@@ -1,6 +1,6 @@
 id = "encore-zed"
 name = "Encore"
-version = "0.0.1"
+version = "0.0.2"
 schema_version = 1
 authors = ["Maksim Shushkevich <m.e.shushkevich@yandex.com>"]
 description = "Encore extension for Zed"
