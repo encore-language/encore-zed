@@ -4,8 +4,8 @@ version = "0.0.1"
 schema_version = 1
 authors = ["Maksim Shushkevich <m.e.shushkevich@yandex.com>"]
 description = "Encore extension for Zed"
-repository = "https://github.com/meshushkevich/ehir-zed-lsp"
+repository = "https://github.com/encore-language/encore-zed"
 
 [grammars.encore]
 repository = "https://github.com/encore-language/tree-sitter-encore"
-commit = "f966c69c67953444a7ba688681a326761c6f2cbe"
+commit = "f581604cabb8c60509bb271a2fa0585baf6daeaa"

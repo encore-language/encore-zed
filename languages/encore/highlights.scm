@@ -1,70 +1,70 @@
 (comment) @comment
-
-(string_literal) @string
-(integer_literal) @number
-(float_literal) @number.float
-(boolean_literal) @boolean
-
-(numeric_suffix) @type.builtin
 (visibility_modifier) @keyword
 
 [
-  "import"
+  "fn"
   "struct"
   "enum"
   "trait"
   "impl"
   "for"
-  "extern"
-  "fn"
-  "ret"
   "let"
   "mut"
-  "do"
+  "ret"
   "while"
+  "do"
   "loop"
+  "break"
+  "continue"
   "if"
   "elif"
   "else"
   "match"
+  "import"
+  "extern"
   "unsafe"
-  "break"
-  "continue"
+  "ehir"
+  "true"
+  "false"
+  "not"
 ] @keyword
 
-"self" @variable.special
+[
+  "H"
+  "S"
+] @type.builtin
 
 [
-  "="
-  "=>"
-  "->"
-  "?"
-  "+="
-  "-="
-  "*="
-  "/="
   "+"
   "-"
   "*"
   "/"
   "%"
-  "||"
-  "&&"
-  "|"
-  "^"
-  "&"
   "=="
   "!="
   "<"
   ">"
   "<="
   ">="
+  "="
+  "+="
+  "-="
+  "*="
+  "/="
+  "&&"
+  "||"
+  "&"
+  "|"
+  "^"
+  "~"
   "<<"
   ">>"
+  "?"
   "!"
-  "~"
-  "++"
-  "--"
+  "=>"
+  "->"
+  "::"
+  "."
 ] @operator
 
 [
@@ -78,87 +78,49 @@
 
 [
   ","
-  "."
   ":"
-  "::"
+  ";"
 ] @punctuation.delimiter
 
-(import_path
-  module: (identifier) @namespace)
+(string_literal) @string
+(integer_literal) @number
+(float_literal) @number.float
+(boolean_literal) @boolean
+(numeric_suffix) @type.builtin
 
-(struct_definition
-  signature: (struct_signature
-    name: (identifier) @type))
+(function_signature name: (identifier) @function)
+(call_expression function: (path (path_segment name: (identifier) @function.call)))
+(method_call_expression method: (identifier) @function.method.call)
 
-(enum_definition
-  name: (identifier) @type)
+(typed_parameter name: (identifier) @variable.parameter)
+(receiver_parameter "self" @variable.special)
 
-(enum_definition
-  (struct_signature
-    name: (identifier) @constructor))
+(import_path module: (identifier) @namespace)
+(import_statement alias: (identifier) @namespace)
 
-(trait_definition
-  name: (identifier) @type)
+(struct_definition signature: (struct_signature name: (identifier) @type))
+(enum_definition name: (identifier) @type)
+(trait_definition name: (identifier) @type)
+(impl_definition trait_name: (identifier) @type)
+(impl_definition target: (type name: (identifier) @type))
+(struct_signature name: (identifier) @type)
+(type name: (identifier) @type)
 
-(impl_definition
-  trait_name: (identifier) @type)
+(field_access_expression field: (identifier) @property)
+(function_attribute name: (identifier) @attribute)
 
-(function_definition
-  signature: (function_signature
-    name: (identifier) @function))
-
-(extern_function_definition
-  signature: (function_signature
-    name: (identifier) @function))
-
-(trait_definition
-  method: (function_signature
-    name: (identifier) @function.method))
-
-(impl_method_definition
-  signature: (function_signature
-    name: (identifier) @function.method))
-
-(method_call_expression
-  method: (identifier) @function.method)
-
-(call_expression
-  function: (path
-    (path_segment
-      name: (identifier) @function)))
-
-(typed_parameter
-  name: (identifier) @variable.parameter)
-
-(let_statement
-  name: (identifier) @variable)
-
-(match_binding
-  name: (identifier) @variable.parameter)
-
-(loop_label
-  name: (identifier) @label)
-
-(field_access_expression
-  field: (identifier) @property)
-
-(c_like_struct_fields
-  (typed_parameter
-    name: (identifier) @property))
-
-(type
-  pointer: (any_pointer_suffix) @operator)
-
-(type
-  pointer: (smart_pointer_suffix) @type.builtin)
-
-(type
-  name: (identifier) @type)
-
-((type
-   name: (identifier) @type.builtin)
+; Builtin primitive/utility types
+((type name: (identifier) @type.builtin)
  (#match? @type.builtin "^(Self|bool|char|str|usize|isize|[ui][0-9]+|f[0-9]+)$"))
 
-(struct_initializer
-  type: (type
-    name: (identifier) @constructor))
+; Enum-qualified variants, e.g. Option[str]::Some, Option[str]::None
+((path
+   (path_segment name: (identifier) @type)
+   "::"
+   (path_segment name: (identifier) @constructor))
+ (#match? @type "^[A-Z][A-Za-z0-9_]*$")
+ (#match? @constructor "^[A-Z][A-Za-z0-9_]*$"))
+
+; General PascalCase path segments as type-ish symbols
+((path_segment name: (identifier) @type)
+ (#match? @type "^[A-Z][A-Za-z0-9_]*$"))
