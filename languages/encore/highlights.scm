@@ -97,6 +97,13 @@
  (#match? @variable "^[a-z_][A-Za-z0-9_]*$"))
 
 (import_path module: (identifier) @namespace)
+((import_path
+   (import_path
+     module: (identifier) @namespace)))
+((import_path
+   (import_path
+     (import_path
+       module: (identifier) @namespace))))
 
 (function_signature name: (identifier) @function)
 (call_expression function: (path (path_segment name: (identifier) @function.call)))
