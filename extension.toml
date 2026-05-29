@@ -8,4 +8,4 @@ repository = "https://github.com/encore-language/encore-zed"
 
 [grammars.encore]
 repository = "https://github.com/encore-language/tree-sitter-encore"
-commit = "f581604cabb8c60509bb271a2fa0585baf6daeaa"
+commit = "260223aa01b8a2f6792036d5dd3ed538a967fda6"

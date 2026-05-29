@@ -12,6 +12,7 @@
   "trait"
   "impl"
   "for"
+  "in"
   "let"
   "mut"
   "ret"
@@ -25,8 +26,12 @@
   "else"
   "match"
   "import"
+  "as"
+  "with"
   "extern"
   "unsafe"
+  "ehir"
+  "not"
 ] @keyword
 
 (visibility_modifier) @keyword
@@ -90,20 +95,13 @@
 (typed_parameter name: (identifier) @variable.parameter)
 (receiver_parameter "self" @variable.special)
 (match_binding name: (identifier) @variable.parameter)
+(for_statement item: (identifier) @variable.parameter)
+(with_statement binding: (identifier) @variable.parameter)
 (let_statement name: (identifier) @variable)
+(global_let_statement name: (identifier) @variable)
 (loop_label name: (identifier) @label)
 
-((path_segment name: (identifier) @variable)
- (#match? @variable "^[a-z_][A-Za-z0-9_]*$"))
-
-(import_path module: (identifier) @namespace)
-((import_path
-   (import_path
-     module: (identifier) @namespace)))
-((import_path
-   (import_path
-     (import_path
-       module: (identifier) @namespace))))
+(import_path (identifier) @namespace)
 
 (function_signature name: (identifier) @function)
 (call_expression function: (path (path_segment name: (identifier) @function.call)))
