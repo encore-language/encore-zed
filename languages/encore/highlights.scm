@@ -28,6 +28,7 @@
   "import"
   "as"
   "with"
+  "macro_rules"
   "extern"
   "unsafe"
   "ehir"
@@ -106,6 +107,10 @@
 (function_signature name: (identifier) @function)
 (call_expression function: (path (path_segment name: (identifier) @function.call)))
 (method_call_expression method: (identifier) @function.method.call)
+(macro_rules_definition name: (identifier) @function.macro)
+(macro_invocation macro: (path (path_segment name: (identifier) @function.macro)))
+((path (path_segment name: (identifier) @variable))
+ (#match? @variable "^[a-z_][A-Za-z0-9_]*$"))
 
 (field_access_expression field: (identifier) @property)
 (c_like_struct_fields (typed_parameter name: (identifier) @property))
