@@ -5,7 +5,20 @@ schema_version = 1
 authors = ["Maksim Shushkevich <m.e.shushkevich@yandex.com>"]
 description = "Encore extension for Zed"
 repository = "https://github.com/encore-language/encore-zed"
+languages = ["languages/encore"]
+capabilities = []
+
+[lib]
+kind = "Rust"
+version = "0.7.0"
 
 [grammars.encore]
 repository = "https://github.com/encore-language/tree-sitter-encore"
-commit = "42960d53ee18bb43fb393241a6e1744a320193f2"
+commit = "d0832b44d8e3e69a9a4d8d0fc4c1a48b6ad30f67"
+
+[language_servers.encore-lsp]
+language = "Encore"
+languages = []
+
+[language_servers.encore-lsp.language_ids]
+Encore = "encore"
