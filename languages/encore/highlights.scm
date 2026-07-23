@@ -102,7 +102,16 @@
 (global_let_statement name: (identifier) @variable)
 (loop_label name: (identifier) @label)
 
-(import_path (identifier) @module)
+((assignment_target
+   (path (path_segment name: (identifier) @variable)))
+ (#match? @variable "^[a-z_][A-Za-z0-9_]*$"))
+
+((cast_expression
+   value: (path (path_segment name: (identifier) @variable)))
+ (#match? @variable "^[a-z_][A-Za-z0-9_]*$"))
+
+(import_path module: (identifier) @type)
+(import_statement alias: (identifier) @type)
 
 ((range_expression
    start: (path (path_segment name: (identifier) @variable)))

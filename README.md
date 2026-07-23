@@ -10,12 +10,27 @@ To develop this extension, see the [Developing Extensions](https://zed.dev/docs/
 
 The extension starts the Encore language server automatically for `.enq` files.
 
-Preferred setup:
+Install the server binary first:
 
 ```sh
-encore install --path /path/to/encore/lsp --name encore-lsp --force
+cd /path/to/encore/index/lsp
+../encore/target/debug/encore install --path . --name encore-lsp --force --profile release
 ```
 
-For a local Python compiler checkout, use `uv run --project /path/to/encore encore-py install --path /path/to/encore/lsp --name encore-lsp --force`.
+By default this copies the executable to:
 
-The extension starts the standalone `encore-lsp` binary. Python CLI `lsp` modes are no longer used.
+```text
+~/.encore/bin/encore-lsp
+```
+
+The extension resolves the server in this order:
+
+1. `ENCORE_LSP_PATH`
+2. local development checkout `../encore/index/lsp/target/release/lsp` (then `debug`)
+3. `~/.encore/bin/encore-lsp` or `$ENCORE_INSTALL_ROOT/bin/encore-lsp`
+4. `encore-lsp` from `PATH`
+
+For local development it also supports:
+
+- `ENCORE_LSP_PATH=/absolute/path/to/encore/index/lsp/target/release/lsp`
+- sibling checkout fallback `../encore/index/lsp/target/{release,debug}/lsp` relative to the `encore-zed` repo

@@ -1,6 +1,6 @@
 id = "encore-zed"
 name = "Encore"
-version = "0.0.2"
+version = "0.0.6"
 schema_version = 1
 authors = ["Maksim Shushkevich <m.e.shushkevich@yandex.com>"]
 description = "Encore extension for Zed"
@@ -17,8 +17,8 @@ repository = "https://github.com/encore-language/tree-sitter-encore"
 commit = "d0832b44d8e3e69a9a4d8d0fc4c1a48b6ad30f67"
 
 [language_servers.encore-lsp]
-language = "Encore"
-languages = []
+name = "Encore LSP"
+languages = ["Encore"]
 
 [language_servers.encore-lsp.language_ids]
 Encore = "encore"
