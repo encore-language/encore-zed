@@ -9,12 +9,14 @@ To develop this extension, see the [Developing Extensions](https://zed.dev/docs/
 ## Language Server
 
 The extension starts the Encore language server automatically for `.enq` files.
+The matching stable server is downloaded from Encore releases when no local
+binary is configured or available on `PATH`.
 
-Install the server binary first:
+To use a locally built server instead, install it first:
 
 ```sh
-cd /path/to/encore/index/lsp
-../encore/target/debug/encore install --path . --name encore-lsp --force --profile release
+cd /path/to/encore-index/lsp
+encore install --path . --name encore-lsp --force --profile release
 ```
 
 By default this copies the executable to:
@@ -25,12 +27,23 @@ By default this copies the executable to:
 
 The extension resolves the server in this order:
 
-1. `ENCORE_LSP_PATH`
-2. local development checkout `../encore/index/lsp/target/release/lsp` (then `debug`)
-3. `~/.encore/bin/encore-lsp` or `$ENCORE_INSTALL_ROOT/bin/encore-lsp`
-4. `encore-lsp` from `PATH`
+1. `lsp.encore-lsp.binary.path` in Zed settings
+2. `ENCORE_LSP_PATH` from the worktree shell environment
+3. `encore-lsp` from the worktree `PATH`
+4. the latest stable Encore release for the current platform
 
-For local development it also supports:
+Zed settings can also supply arguments and environment variables:
 
-- `ENCORE_LSP_PATH=/absolute/path/to/encore/index/lsp/target/release/lsp`
-- sibling checkout fallback `../encore/index/lsp/target/{release,debug}/lsp` relative to the `encore-zed` repo
+```json
+{
+  "lsp": {
+    "encore-lsp": {
+      "binary": {
+        "path": "/absolute/path/to/encore-lsp",
+        "arguments": [],
+        "env": { "ENCORE_CORE_DIR": "/optional/core/path" }
+      }
+    }
+  }
+}
+```

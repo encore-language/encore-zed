@@ -2,11 +2,15 @@
 
 (function_attribute
   "#" @punctuation.special
-  "attr" @attribute
   name: (identifier) @attribute)
+
+(decorator_application "@" @punctuation.special)
 
 [
   "fn"
+  "async"
+  "await"
+  "spawn"
   "struct"
   "enum"
   "trait"
@@ -14,6 +18,7 @@
   "for"
   "in"
   "let"
+  "static"
   "mut"
   "ret"
   "while"
@@ -41,6 +46,7 @@
   "+"
   "-"
   "*"
+  "**"
   "/"
   "%"
   "=="
@@ -53,7 +59,14 @@
   "+="
   "-="
   "*="
+  "**="
   "/="
+  "%="
+  "&="
+  "|="
+  "^="
+  "<<="
+  ">>="
   "&&"
   "||"
   "&"
@@ -94,12 +107,14 @@
 (any_pointer_suffix) @operator
 
 (typed_parameter name: (identifier) @variable.parameter)
+(closure_parameter name: (identifier) @variable.parameter)
 (receiver_parameter "self" @variable.special)
 (match_binding name: (identifier) @variable.parameter)
 (for_statement item: (identifier) @variable.parameter)
 (with_statement binding: (identifier) @variable.parameter)
 (let_statement name: (identifier) @variable)
 (global_let_statement name: (identifier) @variable)
+(global_static_statement name: (identifier) @constant)
 (loop_label name: (identifier) @label)
 
 ((assignment_target

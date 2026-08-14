@@ -1,10 +1,10 @@
 id = "encore-zed"
 name = "Encore"
-version = "0.0.6"
+version = "0.0.7"
 schema_version = 1
 authors = ["Maksim Shushkevich <m.e.shushkevich@yandex.com>"]
 description = "Encore extension for Zed"
-repository = "https://github.com/encore-language/encore-zed"
+repository = "https://github.com/encore-ecosystem/encore-zed"
 languages = ["languages/encore"]
 capabilities = []
 
@@ -13,8 +13,8 @@ kind = "Rust"
 version = "0.7.0"
 
 [grammars.encore]
-repository = "https://github.com/encore-language/tree-sitter-encore"
-commit = "d0832b44d8e3e69a9a4d8d0fc4c1a48b6ad30f67"
+repository = "https://github.com/encore-ecosystem/tree-sitter-encore"
+commit = "5546230513d510fcf331862714926625cd22f3a0"
 
 [language_servers.encore-lsp]
 name = "Encore LSP"
